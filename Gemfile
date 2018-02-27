@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'googleauth'
+gem 'yt'
+gem 'instapaper'
+gem 'highline'
