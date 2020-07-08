@@ -76,6 +76,7 @@ if credentials.nil?
 end
 Yt.configuration.client_id = client_id.id
 Yt.configuration.client_secret = client_id.secret
+Yt.configuration.log_level = :debug
 youtube_account = Yt::Account.new refresh_token: credentials.refresh_token
 unless config.has_key?(:playlist_id)
   $stderr.puts "No existing playlist ID found in config, searching for an existing playlist with title: #{config[:playlist_title]}"
@@ -103,12 +104,16 @@ instapaper_bookmarks = client.bookmarks(:limit => config[:bookmarks_limit])
 $stderr.puts "Checking #{instapaper_bookmarks.to_h[:bookmarks].length} Instapaper bookmarks"
 instapaper_bookmarks.each do |bookmark|
   if (bookmark.url =~ /^https?:\/\/(www\.)?youtube\.com\//)
-    $stderr.puts bookmark.url
-    video_id = bookmark.url.split('=')[1]
-    $stderr.puts "Adding YouTube video #{video_id} to playlist: #{youtube_playlist.title}"
-    youtube_playlist.add_video(video_id)
-    $stderr.puts "Deleting Instapaper bookmark: #{bookmark.url}"
-    client.delete_bookmark(bookmark.bookmark_id)
-    $stderr.puts
+    begin
+      $stderr.puts bookmark.url
+      video_id = bookmark.url.split('=')[1]
+      $stderr.puts "Adding YouTube video #{video_id} to playlist: #{youtube_playlist.title}"
+      youtube_playlist.add_video(video_id)
+      $stderr.puts "Deleting Instapaper bookmark: #{bookmark.url}"
+      client.delete_bookmark(bookmark.bookmark_id)
+      $stderr.puts
+    rescue Yt::Errors::Forbidden => e
+      $stderr.puts e.inspect
+    end
   end
 end
