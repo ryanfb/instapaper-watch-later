@@ -59,7 +59,8 @@ GEM
       simple_oauth (~> 0.3)
       virtus (~> 1)
     json (2.18.1)
-    jwt (2.1.0)
+    jwt (3.2.0)
+      base64
     logger (1.7.0)
     minitest (5.19.0)
     multi_json (1.13.1)
