@@ -21,7 +21,7 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
-    faraday (2.14.1)
+    faraday (2.14.2)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -58,7 +58,7 @@ GEM
       multi_json (~> 1)
       simple_oauth (~> 0.3)
       virtus (~> 1)
-    json (2.18.1)
+    json (2.19.5)
     jwt (2.1.0)
     logger (1.7.0)
     minitest (5.19.0)
